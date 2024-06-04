@@ -1,0 +1,26 @@
+﻿<div class="h-full transition duration-500 transform @animationStyles">
+    @ChildContent
+</div>
+
+@code {
+    private string animationStyles = "translate-x-full opacity-50";
+
+    [Parameter, EditorRequired] 
+    public RenderFragment ChildContent { get; set; } = default!;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Task.Delay(300);
+            TriggerAnimation();
+        }
+    }
+    
+    private void TriggerAnimation()
+    {
+        animationStyles = "translate-x-0 opacity-100";
+        StateHasChanged();
+    }
+    
+}
